@@ -12,7 +12,7 @@ class AdminController extends Controller
         $user = new User();
         $user->username = 'admin';
         $user->email = 'admin@example.ru';
-        $user->setPassword(123456);
+        $user->setPassword('123456789aa');
         $user->generateAuthKey();
 
         $user->save();
