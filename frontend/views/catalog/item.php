@@ -122,19 +122,20 @@ $this->params['breadcrumbs'][] = $this->title;
             <? if (!$model->show_color) {?>
                 <div>
                 Цвет:
-                <div class="prodColorBlock" style="
-                        width: 20px;
-                        height: 20px;
-                        line-height: 0;
-                        vertical-align: middle;
-                        margin: 5px;
-                        display: inline-block;
-                        background: url('/public/img/gradien.jpeg');
-                        background-size: cover;
-                ">
+<!--                <div class="prodColorBlock" style="-->
+<!--                        width: 20px;-->
+<!--                        height: 20px;-->
+<!--                        line-height: 0;-->
+<!--                        vertical-align: middle;-->
+<!--                        margin: 5px;-->
+<!--                        display: inline-block;-->
+<!--                        background: url('/public/img/gradien.jpeg');-->
+<!--                        background-size: cover;-->
+<!--                ">-->
+<!--                </div>-->
+                    <a class="color-picker">Выбрать</a>
+<!--                    <a id="openerr">Выбрать</a>-->
                 </div>
-                <a id="opener">Выбрать</a>
-            </div>
             <?}?>
         </div>
         <!-- Руднев-->
@@ -313,7 +314,32 @@ $css= <<< CSS
     top: 0;
     left: 0;    
 }
-
+.color-picker{
+    padding: 5px;
+    cursor: pointer;
+}
+.pcr-app .pcr-interaction .pcr-clear, .pcr-app .pcr-interaction .pcr-save{
+    width: 100%;
+}
+.product_right{
+    position: relative;
+}
+@media (max-width: 480px) {
+    .pcr-app{
+        margin-left: 0!important;
+        left: 11px!important;
+    }
+}
+@media (max-width: 375px) {
+    .pcr-app{
+        left: 9px!important;
+    }
+}
+@media (max-width: 320px) {
+    .pcr-app{
+        left: 8px!important;
+    }
+}
 CSS;
 
 $this->registerCss($css, ["type" => "text/css"], "callBack" );
@@ -322,6 +348,46 @@ $this->registerCssFile('/public/css/xzoom.css');
 <?
     $js = <<< JS
     $(document).ready(function (){
+        
+        const pickr = Pickr.create({
+            el: '.color-picker',
+            comparison: false,
+            useAsButton: true,
+            parent: '.product_right',
+            default: '#f0f3f2',
+                    
+            components: {
+        
+                // Main components
+                preview: false,
+                opacity: false,
+                hue: true,
+        
+                // Input / output Options
+                interaction: {
+                    hex: false,
+                    rgba: false,
+                    hsla: false,
+                    hsva: false,
+                    cmyk: false,
+                    input: false,
+                    clear: false,
+                    save: true
+                }
+            },
+            strings: {
+               save: 'Выбрать'
+            },
+            onChange(hsva, instance) {
+                $('#addToCart').attr('data-color', hsva.toHEX().toString());
+                $('.color-picker').css('color', hsva.toHEX().toString());
+            },
+            onSave(hsva, instance) {
+                $('#addToCart').attr('data-color', hsva.toHEX().toString());
+                $('.color-picker').css('color', hsva.toHEX().toString());
+            },
+        });
+        
         var input = $('#prodCount');
         $('.minus').click(function () {
                 var count = parseInt(input.val()) - 1;
