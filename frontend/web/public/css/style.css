@@ -141,8 +141,10 @@ strong{
 	width: 100% !important;
 	justify-content: end !important;
 }
-.categoryFromCatalog .category{
-	/*width: 23%;*/
+@media (min-width: 1000px) {
+	.categoryFromCatalog .category{
+		width: 23%;
+	}
 }
 .usluga{
 	width: 33%;
