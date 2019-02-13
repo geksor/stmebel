@@ -7,6 +7,7 @@ use Yii;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Inflector;
 use yii\helpers\Json;
+use yii\helpers\VarDumper;
 
 /**
  * This is the model class for table "product".
@@ -506,13 +507,19 @@ class Product extends \yii\db\ActiveRecord
         $basePrice = $this->price;
         if ($prodAttr){
             foreach ($prodAttr as $attr){/* @var $attr ProductAttr */
-                switch ($attr->price_mod){
-                    case 0:
-                        $basePrice = $basePrice + $attr->add_price;
-                        break;
-                    case 1:
-                        $basePrice = $basePrice - $attr->add_price;
-                        break;
+                if (is_object($attr)){
+                    $attr = ArrayHelper::toArray($attr);
+                }
+
+                if ($attr['price_mod'] >= 0){
+                    switch ($attr['price_mod']){
+                        case 0:
+                            $basePrice += $attr['add_price']?$attr['add_price']:0;
+                            break;
+                        case 1:
+                            $basePrice -= $attr['add_price']?$attr['add_price']:0;
+                            break;
+                    }
                 }
             }
         }

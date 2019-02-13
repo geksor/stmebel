@@ -126,7 +126,15 @@ $this->params['breadcrumbs'][] = $this->title;
                 <? if ($orderCheckOptions) {?>
                     <div class="basket_right_2">
                         <? foreach ($orderCheckOptions as $checkOption) {/* @var $checkOption \common\models\OrderOptCheckbox */?>
-                            <label class="container"><?= $checkOption->title ?> <a>( +<?= $checkOption->addPrice ?> руб.)</a>
+                            <label class="container"><?= $checkOption->title ?> <a>
+                                    (
+                                    <? if ($checkOption->addPrice) {?>
+                                        +<?= $checkOption->addPrice ?> руб.
+                                    <?}else{?>
+                                        Бесплатно
+                                    <?}?>
+                                    )
+                                </a>
                                 <input class="checkboxCart"
                                     <?=
                                         \yii\helpers\ArrayHelper::isIn($checkOption->id, Yii::$app->session->get('cart')['select_option']['checkbox'])
