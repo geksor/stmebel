@@ -17,9 +17,9 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <? \yii\widgets\Pjax::begin(['id' => 'cart']) ?>
-    <div class="content flex_1">
-        <? if ($cartProduct) {?>
-            <div class="basket">
+<div class="content flex_1">
+    <? if ($cartProduct) {?>
+        <div class="basket">
             <h1>Оформление заказа</h1>
 
             <?php $form = ActiveForm::begin([
@@ -29,25 +29,25 @@ $this->params['breadcrumbs'][] = $this->title;
                 ]
             ]); ?>
 
-                <?= $form->field($orderForm, 'customer_name')->textInput(['maxlength' => true, 'placeholder' => 'Введите ваше имя *'])->label(false) ?>
+            <?= $form->field($orderForm, 'customer_name')->textInput(['maxlength' => true, 'placeholder' => 'Введите ваше имя *'])->label(false) ?>
 
-                <?= $form->field($orderForm, 'customer_phone')->textInput(['maxlength' => true, 'placeholder' => 'Номер телефона *'])->label(false) ?>
+            <?= $form->field($orderForm, 'customer_phone')->textInput(['maxlength' => true, 'placeholder' => 'Номер телефона *'])->label(false) ?>
 
-                <?= $form->field($orderForm, 'customer_email')->textInput(['maxlength' => true, 'placeholder' => 'email (необязательно)'])->label(false) ?>
+            <?= $form->field($orderForm, 'customer_email')->textInput(['maxlength' => true, 'placeholder' => 'email (необязательно)'])->label(false) ?>
 
-                <div style="display: none!important;">
+            <div style="display: none!important;">
 
-                    <?= $form->field($orderForm, 'props_checkbox')->hiddenInput()->label(false) ?>
+                <?= $form->field($orderForm, 'props_checkbox')->hiddenInput()->label(false) ?>
 
-                    <?= $form->field($orderForm, 'props_radiobutton')->hiddenInput()->label(false) ?>
+                <?= $form->field($orderForm, 'props_radiobutton')->hiddenInput()->label(false) ?>
 
-                    <?= $form->field($orderForm, 'products')->hiddenInput()->label(false) ?>
+                <?= $form->field($orderForm, 'products')->hiddenInput()->label(false) ?>
 
-                    <?= $form->field($orderForm, 'total_price')->hiddenInput()->label(false) ?>
+                <?= $form->field($orderForm, 'total_price')->hiddenInput()->label(false) ?>
 
-                    <?= \yii\helpers\Html::submitButton('', ['class' => 'orderFormSubmit']) ?>
+                <?= \yii\helpers\Html::submitButton('', ['class' => 'orderFormSubmit']) ?>
 
-                </div>
+            </div>
 
             <? ActiveForm::end() ?>
 
@@ -126,22 +126,20 @@ $this->params['breadcrumbs'][] = $this->title;
                 <? if ($orderCheckOptions) {?>
                     <div class="basket_right_2">
                         <? foreach ($orderCheckOptions as $checkOption) {/* @var $checkOption \common\models\OrderOptCheckbox */?>
-                            <label class="container"><?= $checkOption->title ?> <a>
-                                    (
+                            <label class="container"><?= $checkOption->title ?> <a>(
                                     <? if ($checkOption->addPrice) {?>
                                         +<?= $checkOption->addPrice ?> руб.
                                     <?}else{?>
                                         Бесплатно
                                     <?}?>
-                                    )
-                                </a>
+                                    )</a>
                                 <input class="checkboxCart"
                                     <?=
-                                        \yii\helpers\ArrayHelper::isIn($checkOption->id, Yii::$app->session->get('cart')['select_option']['checkbox'])
-                                            ?'checked'
-                                            :'';
+                                    \yii\helpers\ArrayHelper::isIn($checkOption->id, Yii::$app->session->get('cart')['select_option']['checkbox'])
+                                        ?'checked'
+                                        :'';
                                     ?>
-                                    type="checkbox" data-id="<?= $checkOption->id ?>">
+                                       type="checkbox" data-id="<?= $checkOption->id ?>">
                                 <span class="checkmark"></span>
                             </label>
                         <?}?>
@@ -154,14 +152,22 @@ $this->params['breadcrumbs'][] = $this->title;
                             <? if ($radioOption->orderOptRbItems) {?>
                                 <h3><?= $radioOption->title ?>:</h3>
                                 <? foreach ($radioOption->orderOptRbItems as $optRbItem) {?>
-                                    <label class="container"><?= $optRbItem->title ?> <a>( +<?= $optRbItem->addPrice ?> руб.)</a>
+                                    <label class="container"><?= $optRbItem->title ?> <a>
+                                            (
+                                            <? if ($optRbItem->addPrice) {?>
+                                                +<?= $optRbItem->addPrice ?> руб.
+                                            <?}else{?>
+                                                Бесплатно
+                                            <?}?>
+                                            )
+                                        </a>
                                         <input class="radioCart"
                                             <?=
                                             \yii\helpers\ArrayHelper::isIn($optRbItem->id, Yii::$app->session->get('cart')['select_option']['radio'])
                                                 ?'checked'
                                                 :'';
                                             ?>
-                                        type="radio" name="radio<?= $radioOption->id ?>" data-id="<?= $optRbItem->id ?>">
+                                               type="radio" name="radio<?= $radioOption->id ?>" data-id="<?= $optRbItem->id ?>">
                                         <span class="checkmark"></span>
                                     </label>
                                 <?}?>
@@ -175,10 +181,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
             </div>
         </div>
-        <?}else{?>
-            <p>корзина пуста</p>
-        <?}?>
-    </div>
+    <?}else{?>
+        <p>корзина пуста</p>
+    <?}?>
+</div>
 
 <?
 
