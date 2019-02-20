@@ -12,6 +12,7 @@ use common\models\Product;
 use common\models\ProductAttr;
 use frontend\models\OrderEnd;
 use frontend\widgets\CartWidget;
+use TelegramBot\Api\HttpException;
 use Yii;
 use yii\db\Exception;
 use yii\helpers\ArrayHelper;
@@ -258,11 +259,7 @@ class CartController extends Controller
                 Yii::$app->session->setFlash('success', 'Ваш заказ принят. В ближайшее время с вами свяжется менеджер для подтверждения заказа.');
                 if ($contactModel->chatId){
                     $message = "Новый заказ с сайта\n Имя: $order->customer_name \n Телефон: $order->customer_phone \n Сумма заказа: $order->total_price";
-                    try{
-                        \Yii::$app->bot->sendMessage((integer)$contactModel->chatId, $message);
-                    }catch (Exception $exception){
-
-                    }
+                    \Yii::$app->bot->sendMessage((integer)$contactModel->chatId, $message);
                 }
                 if ($contactModel->email) {
                     $order->sendEmail();
