@@ -12,6 +12,7 @@ use common\models\ThreeBlock;
 use frontend\widgets\ModalsWidget;
 use Yii;
 use yii\helpers\ArrayHelper;
+use yii\helpers\VarDumper;
 use yii\web\Controller;
 
 /**
@@ -132,6 +133,11 @@ class SiteController extends Controller
         if (Yii::$app->request->isPjax){
             return $this->renderAjax(ModalsWidget::widget());
         }
+
+        if (Yii::$app->request->referrer === Yii::$app->request->absoluteUrl){
+            return $this->redirect('/');
+        }
+
         return $this->redirect(Yii::$app->request->referrer);
     }
 

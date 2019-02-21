@@ -10,7 +10,7 @@
         <a class="cd-dropdown-trigger" href="#0">Каталог мебели</a>
         <nav class="cd-dropdown">
             <h2>Каталог мебели</h2>
-            <a href="#0" class="cd-close">Закрыть</a>
+            <a href="#" class="cd-close">Закрыть</a>
             <ul class="cd-dropdown-content">
                 <? if ($items) {?>
                     <? foreach ($items as $item) {?>
@@ -19,7 +19,7 @@
                                 <a href="<?= \yii\helpers\Url::to($item['url']) ?>"><?= $item['label'] ?></a>
 
                                 <ul class="cd-secondary-dropdown is-hidden">
-                                    <li class="go-back"><a href="#0">Каталог мебели</a></li>
+                                    <li class="go-back"><a href="#">Каталог мебели</a></li>
                                     <li class="see-all"><a href="<?= \yii\helpers\Url::to($item['url']) ?>">Перейти в <?= $item['label'] ?></a></li>
                                     <? foreach ($item['items'] as $item1) {?>
                                         <? if (array_key_exists('items', $item1)) {?>

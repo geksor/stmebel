@@ -12,12 +12,12 @@ jQuery(document).ready(function($){
 	});
 
 	//on mobile - open submenu
-	$('.has-children').children('a').on('click', function(event){
-		//prevent default clicking on direct children of .has-children 
-		event.preventDefault();
-		var selected = $(this);
-		selected.next('ul').removeClass('is-hidden').end().parent('.has-children').parent('ul').addClass('move-out');
-	});
+	// $('.has-children').children('a').on('click', function(event){
+	// 	//prevent default clicking on direct children of .has-children
+	// 	event.preventDefault();
+	// 	var selected = $(this);
+	// 	selected.next('ul').removeClass('is-hidden').end().parent('.has-children').parent('ul').addClass('move-out');
+	// });
 
 	//on desktop - differentiate between a user trying to hover over a dropdown item vs trying to navigate into a submenu's contents
 	var submenuDirection = ( !$('.cd-dropdown-wrapper').hasClass('open-to-left') ) ? 'right' : 'left';
@@ -37,15 +37,15 @@ jQuery(document).ready(function($){
         	$('.cd-dropdown-content').find('.is-active').removeClass('is-active');
         	return true;
         },
-        submenuDirection: submenuDirection,
+        submenuDirection: submenuDirection
     });
 
 	//submenu items - go back link
-	$('.go-back').on('click', function(){
-		var selected = $(this),
-			visibleNav = $(this).parent('ul').parent('.has-children').parent('ul');
-		selected.parent('ul').addClass('is-hidden').parent('.has-children').parent('ul').removeClass('move-out');
-	}); 
+	// $('.go-back').on('click', function(){
+	// 	var selected = $(this);
+	// 		visibleNav = $(this).parent('ul').parent('.has-children').parent('ul');
+	// 	selected.parent('ul').addClass('is-hidden').parent('.has-children').parent('ul').removeClass('move-out');
+	// });
 
 	function toggleNav(){
 		var navIsVisible = ( !$('.cd-dropdown').hasClass('dropdown-is-active') ) ? true : false;
@@ -56,7 +56,7 @@ jQuery(document).ready(function($){
 				$('.has-children ul').addClass('is-hidden');
 				$('.move-out').removeClass('move-out');
 				$('.is-active').removeClass('is-active');
-			});	
+			});
 		}
 	}
 
