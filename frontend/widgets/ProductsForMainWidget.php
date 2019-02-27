@@ -1,10 +1,8 @@
 <?php
 namespace frontend\widgets;
 
-use common\models\Category;
 use common\models\Product;
 use yii\base\Widget;
-use yii\helpers\VarDumper;
 
 class ProductsForMainWidget extends Widget
 {
@@ -38,8 +36,6 @@ class ProductsForMainWidget extends Widget
 //                },
 //            ])
             ->all();
-
-//        VarDumper::dump($modelsNew,30,true);die;
 
         return $this->render('products-for-mainWidget', [
             'modelsHot' => $modelsHot,
