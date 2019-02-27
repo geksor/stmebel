@@ -13,31 +13,33 @@ class ProductsForMainWidget extends Widget
         $modelsHot = Product::find()
             ->where(['publish' => 1, 'hot' => 1])
             ->orderBy(['rank' => SORT_ASC])
-            ->with([
-                'productOptionsList'  => function (\yii\db\ActiveQuery $query) {
-                    $query->with(['options', 'optionsValue']);
-                },
-            ])
+//            ->with([
+//                'productOptionsList'  => function (\yii\db\ActiveQuery $query) {
+//                    $query->with(['options', 'optionsValue']);
+//                },
+//            ])
             ->all();
         $modelsNew = Product::find()
             ->where(['publish' => 1, 'new' => 1])
             ->orderBy(['rank' => SORT_ASC])
-            ->with([
-                'productOptionsList'  => function (\yii\db\ActiveQuery $query) {
-                    $query->with(['options', 'optionsValue']);
-                },
-            ])
+//            ->with([
+//                'productOptionsList'  => function (\yii\db\ActiveQuery $query) {
+//                    $query->with(['options', 'optionsValue']);
+//                },
+//            ])
             ->all();
         $modelsSale = Product::find()
             ->where(['publish' => 1])
             ->andWhere(['not in', 'sale', 'null'])
             ->orderBy(['rank' => SORT_ASC])
-            ->with([
-                'productOptionsList'  => function (\yii\db\ActiveQuery $query) {
-                    $query->with(['options', 'optionsValue']);
-                },
-            ])
+//            ->with([
+//                'productOptionsList'  => function (\yii\db\ActiveQuery $query) {
+//                    $query->with(['options', 'optionsValue']);
+//                },
+//            ])
             ->all();
+
+//        VarDumper::dump($modelsNew,30,true);die;
 
         return $this->render('products-for-mainWidget', [
             'modelsHot' => $modelsHot,
