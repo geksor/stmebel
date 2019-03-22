@@ -122,17 +122,17 @@ $this->params['breadcrumbs'][] = $this->title;
             <? if (!$model->show_color) {?>
                 <div>
                 Цвет:
-<!--                <div class="prodColorBlock" style="-->
-<!--                        width: 20px;-->
-<!--                        height: 20px;-->
-<!--                        line-height: 0;-->
-<!--                        vertical-align: middle;-->
-<!--                        margin: 5px;-->
-<!--                        display: inline-block;-->
-<!--                        background: url('/public/img/gradien.jpeg');-->
-<!--                        background-size: cover;-->
-<!--                ">-->
-<!--                </div>-->
+                <div class="prodColorBlock" id="colorImgHide" style="
+                        width: 20px;
+                        height: 20px;
+                        line-height: 0;
+                        vertical-align: middle;
+                        margin: 5px;
+                        display: inline-block;
+                        background: url('/public/img/gradien.jpeg');
+                        background-size: cover;
+                ">
+                </div>
                     <a class="color-picker">Выбрать</a>
 <!--                    <a id="openerr">Выбрать</a>-->
                 </div>
@@ -349,44 +349,48 @@ $this->registerCssFile('/public/css/xzoom.css');
     $js = <<< JS
     $(document).ready(function (){
         
-        const pickr = Pickr.create({
-            el: '.color-picker',
-            comparison: false,
-            useAsButton: true,
-            parent: '.product_right',
-            default: '#f0f3f2',
-                    
-            components: {
-        
-                // Main components
-                preview: false,
-                opacity: false,
-                hue: true,
-        
-                // Input / output Options
-                interaction: {
-                    hex: false,
-                    rgba: false,
-                    hsla: false,
-                    hsva: false,
-                    cmyk: false,
-                    input: false,
-                    clear: false,
-                    save: true
-                }
-            },
-            strings: {
-               save: 'Выбрать'
-            },
-            onChange(hsva, instance) {
-                $('#addToCart').attr('data-color', hsva.toHEX().toString());
-                $('.color-picker').css('color', hsva.toHEX().toString());
-            },
-            onSave(hsva, instance) {
-                $('#addToCart').attr('data-color', hsva.toHEX().toString());
-                $('.color-picker').css('color', hsva.toHEX().toString());
-            },
-        });
+        if (!$model->show_color){
+            const pickr = Pickr.create({
+                el: '.color-picker',
+                comparison: false,
+                useAsButton: true,
+                parent: '.product_right',
+                default: '#f0f3f2',
+                        
+                components: {
+            
+                    // Main components
+                    preview: false,
+                    opacity: false,
+                    hue: true,
+            
+                    // Input / output Options
+                    interaction: {
+                        hex: false,
+                        rgba: false,
+                        hsla: false,
+                        hsva: false,
+                        cmyk: false,
+                        input: false,
+                        clear: false,
+                        save: true
+                    }
+                },
+                strings: {
+                   save: 'Выбрать'
+                },
+                onChange(hsva, instance) {
+                    $('#addToCart').attr('data-color', hsva.toHEX().toString());
+                    $('.color-picker').css('color', hsva.toHEX().toString());
+                    $('#colorImgHide').hide();
+                },
+                onSave(hsva, instance) {
+                    $('#addToCart').attr('data-color', hsva.toHEX().toString());
+                    $('.color-picker').css('color', hsva.toHEX().toString());
+                    $('#colorImgHide').hide();
+                },
+            });
+        }
         
         var input = $('#prodCount');
         $('.minus').click(function () {

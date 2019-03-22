@@ -1,8 +1,4 @@
 
-
-
-
-
 <? if (Yii::$app->session->hasFlash('success')) {?>
 
 <?
