@@ -106,6 +106,7 @@ class CartController extends Controller
         $totalPrice = 0;
         if ($cart){
             foreach ($cart['items'] as $item){
+                /* @var $itemProd Product */
                 $itemProd = Product::find()
                     ->where(['id' => $item['prod_id']])
                     ->one();
@@ -146,11 +147,6 @@ class CartController extends Controller
 
         if (empty($cartProduct)){
             Yii::$app->session->setFlash('warning', 'Корзина пуста');
-//            VarDumper::dump(Yii::$app->request,10,true);die;
-
-            if (Yii::$app->request->isPjax){
-                return null;
-            }
             if (Yii::$app->request->pathInfo === Yii::$app->controller->id){
                 return $this->redirect('/');
             }
