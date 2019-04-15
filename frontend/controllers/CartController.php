@@ -126,7 +126,8 @@ class CartController extends Controller
                     'attrValue' => $item['prod_attrValue'],
                 ];
 
-                $totalPrice += $itemProd->getCalcPrice($itemAttrProd)*$item['prod_count'];
+                $itemPrice = $itemProd->sale?$itemProd->getSaleCalcPrice($itemAttrProd):$itemProd->getCalcPrice($itemAttrProd);
+                $totalPrice += $itemPrice*$item['prod_count'];
             }
 
             foreach ($cart['select_option']['checkbox'] as $checkbox){
@@ -145,7 +146,7 @@ class CartController extends Controller
 
         if (empty($cartProduct)){
             Yii::$app->session->setFlash('warning', 'Корзина пуста');
-            VarDumper::dump(Yii::$app->request,10,true);die;
+//            VarDumper::dump(Yii::$app->request,10,true);die;
 
             if (Yii::$app->request->isPjax){
                 return null;
