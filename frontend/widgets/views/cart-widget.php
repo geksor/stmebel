@@ -48,17 +48,7 @@ $('#cartWidget').on('pjax:end', function() {
 });
 
 $('#cartWidget').on('click', function() {
-    if ($(this).hasClass('empty')){
-        $.pjax.reload({
-            container: '#cartWidget',
-            url        : '/cart',
-            push       : false,
-            replace    : false,
-            timeout    : 1000,
-        });
-    }else {
-        window.location.href = '/cart';  
-    }
+    window.location.href = '/cart';  
 });
 JS;
 $this->registerJs($js, $position = yii\web\View::POS_END, $key = null);
